@@ -1,0 +1,122 @@
+<style>
+    body {
+        font-family: Arial;
+        margin: 0;
+        background: #f2f2f2;
+    }
+    
+    .header {
+        display: flex;
+        justify-content: space-between;
+        background: white;
+        padding: 15px 40px;
+    }
+    
+    .nav a {
+        margin-left: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    
+    .main {
+        display: flex;
+        padding: 20px;
+        gap: 20px;
+    }
+    
+    .left {
+        width: 300px;
+    }
+    
+    .time {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .time button {
+        padding: 12px;
+        cursor: pointer;
+    }
+    
+    .doctors {
+        flex: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .card {
+        background: white;
+        padding: 15px;
+    }
+    
+    .available {
+        background: #c8f7c5;
+    }
+    
+    .not {
+        background: #f7c5c5;
+    }
+    
+    button {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="header">
+    <h2>CLINIC APPOINTMENT</h2>
+
+    <div class="nav">
+        <a routerLink="/patient">HOME</a>
+        <a routerLink="/about">ABOUT</a>
+        <a routerLink="/navdoctor-">DOCTOR</a>
+        <a routerLink="/booking">BOOKING</a>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- LEFT -->
+    <div class="left">
+        <h2>APPOINTMENT</h2>
+
+        <input type="date">
+
+        <div class="time">
+            <button (click)="selectTime('8AM')">8AM</button>
+            <button (click)="selectTime('9AM')">9AM</button>
+            <button (click)="selectTime('10AM')">10AM</button>
+            <button (click)="selectTime('11AM')">11AM</button>
+            <button (click)="selectTime('1PM')">1PM</button>
+            <button (click)="selectTime('2PM')">2PM</button>
+            <button (click)="selectTime('3PM')">3PM</button>
+            <button (click)="selectTime('4PM')">4PM</button>
+        </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="doctors">
+
+        <div class="card" [class.available]="isAvailable('doc1')" [class.not]="selectedTime && !isAvailable('doc1')">
+            Dr. Belo
+            <button (click)="appoint('Dr. Belo')">APPOINT</button>
+        </div>
+
+        <div class="card" [class.available]="isAvailable('doc2')" [class.not]="selectedTime && !isAvailable('doc2')">
+            Dr. Manis
+            <button (click)="appoint('Dr. Manis')">APPOINT</button>
+        </div>
+
+        <div class="card" [class.available]="isAvailable('doc3')" [class.not]="selectedTime && !isAvailable('doc3')">
+            Dr. Julius
+            <button (click)="appoint('Dr. Julius')">APPOINT</button>
+        </div>
+
+        <div class="card" [class.available]="isAvailable('doc4')" [class.not]="selectedTime && !isAvailable('doc4')">
+            Dr. Bacus
+            <button (click)="appoint('Dr. Bacus')">APPOINT</button>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="login-container">
+
+    <!-- LEFT IMAGE -->
+    <div class="login-left">
+        <img src="DOCTOR.PNG.png" alt="doctor">
+    </div>
+
+    <!-- RIGHT FORM -->
+    <div class="login-right">
+        <h2>Sign in</h2>
+        <p>Log in by entering your email address and password.</p>
+
+        <!-- ROLE -->
+        <div class="role-buttons">
+            <button (click)="setRole('admin')" [class.active]="role==='admin'">Admin</button>
+            <button (click)="setRole('doctor')" [class.active]="role==='doctor'">Doctor</button>
+            <button (click)="setRole('patient')" [class.active]="role==='patient'">Patient</button>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <!-- INPUTS -->
+        <label>Email address</label>
+        <input type="email" [(ngModel)]="email" placeholder="email@address.com">
+
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" placeholder="********">
+
+        <a href="#">Forgot password?</a>
+
+        <button class="login-btn" (click)="login()">Log in</button>
+
+        <div class="remember">
+            <input type="checkbox"> Remember
+        </div>
+
+        <button class="google-btn">Sign in with Google</button>
+
+        <p class="signup">Don't have an account? <a href="#">Sign up here</a></p>
+    </div>
+
+</div>
