@@ -1,10 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-doctor',
+  selector: 'app-doctor-portal',
   standalone: true,
-  imports: [],
-  templateUrl: './doctor.html',
-  styleUrl: './doctor.css',
+  imports: [CommonModule],
+  templateUrl: './doctor.component.html',
+  styleUrls: ['./doctor.css']
 })
-export class Doctor {}
+export class DoctorComponent implements OnInit {
+
+  appointments: any[] = [];
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.loadAppointments();
+  }
+
+  loadAppointments() {
+    this.appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+  }
+
+  logout() {
+    this.router.navigate(['/']);
+  }
+}

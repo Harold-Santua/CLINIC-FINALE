@@ -1,0 +1,88 @@
+<div class="header">
+    <h2>DOCTOR DASHBOARD</h2>
+
+    <div class="nav">
+        <a routerLink="/patient">ABOUT</a>
+        <a routerLink="/doctor">DOCTOR</a>
+        <a routerLink="/patient">BOOKING</a>
+    </div>
+</div>
+
+<div class="main">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <h2>APPOINTMENT</h2>
+
+        <input type="date">
+
+        <div class="time">
+            <button (click)="selectTime('8AM')">8:00 AM</button>
+            <button (click)="selectTime('9AM')">9:00 AM</button>
+            <button (click)="selectTime('10AM')">10:00 AM</button>
+            <button (click)="selectTime('11AM')">11:00 AM</button>
+            <button (click)="selectTime('1PM')">1:00 PM</button>
+            <button (click)="selectTime('2PM')">2:00 PM</button>
+            <button (click)="selectTime('3PM')">3:00 PM</button>
+            <button (click)="selectTime('4PM')">4:00 PM</button>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="doctors">
+
+        <!-- DOC 1 -->
+        <div class="card" [class.available]="isAvailable('doc1')" [class.not-available]="selectedTime && !isAvailable('doc1')">
+
+            <img src="doc3.png" class="doc-img">
+
+            <div>
+                <b>Dr. Belo</b><br> Specialty:
+                <br> Phone Number:<br> Email Address:
+            </div>
+
+            <button class="btn" (click)="bookAppointment('doc1')">APPOINT</button>
+        </div>
+
+        <!-- DOC 2 -->
+        <div class="card" [class.available]="isAvailable('doc2')" [class.not-available]="selectedTime && !isAvailable('doc2')">
+
+            <img src="doc4.png" class="doc-img">
+
+            <div>
+                <b>Dr. Manis</b><br> Specialty:
+                <br> Phone Number:<br> Email Address:
+            </div>
+
+            <button class="btn" (click)="bookAppointment('doc2')">APPOINT</button>
+        </div>
+
+        <!-- DOC 3 -->
+        <div class="card" [class.available]="isAvailable('doc3')" [class.not-available]="selectedTime && !isAvailable('doc3')">
+
+            <img src="Doc1.png" class="doc-img">
+
+            <div>
+                <b>Dr. Julius</b><br> Specialty:
+                <br> Phone Number:<br> Email Address:
+            </div>
+
+            <button class="btn" (click)="bookAppointment('doc3')">APPOINT</button>
+        </div>
+
+        <!-- DOC 4 -->
+        <div class="card" [class.available]="isAvailable('doc4')" [class.not-available]="selectedTime && !isAvailable('doc4')">
+
+            <img src="doc5.png" class="doc-img">
+
+            <div>
+                <b>Dr. Bacus</b><br> Specialty:
+                <br> Phone Number:<br> Email Address:
+            </div>
+
+            <button class="btn" (click)="bookAppointment('doc4')">APPOINT</button>
+        </div>
+
+    </div>
+
+</div>

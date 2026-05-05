@@ -1,62 +1,47 @@
+html,
 body {
+    height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
 }
 
+
+/* FULL SCREEN CENTER */
+
 .login-container {
     display: flex;
-    height: 100vh;
-    background: #7f94b8;
-}
-
-
-/* LEFT */
-
-.login-left {
-    flex: 1;
-    display: flex;
-    align-items: center;
     justify-content: center;
+    /* horizontal */
+    align-items: center;
+    /* vertical */
+    width: 100vw;
+    height: 100vh;
+    background: url('BLUR BG.jpg') no-repeat center center/cover;
 }
 
-.login-left img {
-    width: 300px;
-}
 
+/* CENTER BOX */
 
-/* RIGHT */
-
-.login-right {
-    flex: 1;
-    background: transparent;
+.login-center {
+    width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.85);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 40px;
-    color: #333;
+    align-items: center;
+    /* centers everything inside */
+    text-align: center;
 }
 
 
-/* ROLE BUTTONS */
+/* BUTTON GROUP */
 
 .role-buttons {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
-}
-
-.role-buttons button {
-    flex: 1;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    background: #ddd;
-    border-radius: 5px;
-}
-
-.role-buttons button.active {
-    background: #222;
-    color: white;
+    justify-content: center;
+    width: 100%;
 }
 
 
@@ -68,35 +53,30 @@ input {
     margin: 8px 0;
     border-radius: 5px;
     border: none;
+    text-align: center;
 }
 
 
-/* LOGIN BUTTON */
+/* BUTTONS */
 
-.login-btn {
-    margin-top: 10px;
-    padding: 12px;
-    background: #222;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-
-/* GOOGLE */
-
+.login-btn,
 .google-btn {
-    margin-top: 10px;
+    width: 100%;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    background: white;
+    margin-top: 10px;
 }
 
 
 /* TEXT */
 
-.signup {
-    margin-top: 10px;
+h2,
+p,
+label,
+a {
+    text-align: center;
+}
+
+app-root {
+    display: block;
+    width: 100%;
 }

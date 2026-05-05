@@ -113,3 +113,292 @@ nav a {
     font-size: 16px;
     line-height: 1.6;
 }
+
+
+/* DOCTOR PAGE*/
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f2f2f2;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 40px;
+}
+
+.nav a {
+    margin-left: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* MAIN LAYOUT */
+
+.main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+/* LEFT */
+
+.left {
+    width: 300px;
+}
+
+.time {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+/* RIGHT */
+
+.doctors {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+
+/* CARD */
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* STATUS */
+
+.available {
+    background: #c8f7c5;
+}
+
+.not-available {
+    background: #f7c5c5;
+}
+
+.btn {
+    padding: 5px 10px;
+    background: #3b5aa3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* DoctorPage */
+
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f2f2f2;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 40px;
+}
+
+.nav a {
+    margin-left: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* MAIN LAYOUT */
+
+.main {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+}
+
+
+/* LEFT */
+
+.left {
+    width: 300px;
+}
+
+.time {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.time button {
+    padding: 10px;
+    cursor: pointer;
+}
+
+
+/* RIGHT */
+
+.doctors {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+
+/* CARD */
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* STATUS */
+
+.available {
+    background: #c8f7c5;
+}
+
+.not-available {
+    background: #f7c5c5;
+}
+
+.btn {
+    padding: 5px 10px;
+    background: #3b5aa3;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* About */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    padding: 10px 40px;
+    border-bottom: 2px solid #ddd;
+    z-index: 10;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px);
+    background: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    margin-right: 10px;
+}
+
+.logo h2 {
+    margin: 0;
+    color: #2c7be5;
+}
+
+
+/* NAVIGATION */
+
+.nav {
+    display: flex;
+    gap: 30px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    color: #2c7be5;
+}
+
+
+/* CONTENT */
+
+.container {
+    background-color: #ffffff;
+    margin: 30px auto;
+    padding: 30px;
+    width: 80%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+
+/* Doctor image */
+
+.card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.doc-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}

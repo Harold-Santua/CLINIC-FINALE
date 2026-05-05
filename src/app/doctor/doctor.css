@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    font-family: Arial;
+}
+
+
+/* LAYOUT */
+
+.layout {
+    display: flex;
+    height: 100vh;
+}
+
+
+/* SIDEBAR */
+
+.sidebar {
+    width: 250px;
+    background: #1f2d3d;
+    color: white;
+    padding: 20px;
+}
+
+.logo {
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 12px;
+    cursor: pointer;
+}
+
+.sidebar li:hover,
+.sidebar .active {
+    background: #2f4050;
+}
+
+
+/* MAIN */
+
+.main {
+    flex: 1;
+    background: #f4f6f9;
+}
+
+
+/* HEADER */
+
+.header {
+    background: #3c8dbc;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header button {
+    background: red;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+
+/* CONTENT */
+
+.content {
+    padding: 20px;
+}
+
+
+/* TABLE */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th {
+    background: #e9ecef;
+    padding: 12px;
+    text-align: left;
+}
+
+td {
+    padding: 12px;
+    border-top: 1px solid #ddd;
+}
+
+tr:hover {
+    background: #f1f1f1;
+}

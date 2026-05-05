@@ -1,0 +1,56 @@
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2 class="logo">CLINIC</h2>
+
+        <ul>
+            <li class="active">Appointment Management</li>
+            <li>Doctor Management</li>
+            <li>Feedback</li>
+            <li>Statistics</li>
+            <li>Settings</li>
+        </ul>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- HEADER -->
+        <div class="header">
+            <h2>Appointment Management</h2>
+            <button (click)="logout()">Logout</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <div class="top-bar">
+                <h3>Appointments</h3>
+            </div>
+
+            <!-- TABLE -->
+            <table>
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Doctor</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let a of appointments">
+                        <td>{{ a.name }}</td>
+                        <td>{{ a.doctor }}</td>
+                        <td>{{ a.time }}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
