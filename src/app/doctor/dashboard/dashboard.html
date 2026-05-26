@@ -1,0 +1,143 @@
+<app-healthcare-shell>
+  <div class="role-dashboard-layout">
+    <app-sidebar [links]="[{label:'Dashboard',url:'/doctor'},{label:'Schedule',url:'/doctor/schedule'}]"></app-sidebar>
+    <main class="content dashboard">
+      <header class="dashboard-header">
+        <div>
+          <h2>Doctor Dashboard</h2>
+          <p class="hint">Live metrics from Firestore emulator — updates when patients book or you complete visits.</p>
+        </div>
+        <a class="schedule-link" routerLink="/doctor/schedule">Open schedule</a>
+      </header>
+
+      <div class="alert alert-error" *ngIf="appointmentsStreamError" role="alert">{{ appointmentsStreamError }}</div>
+
+      <section class="stats-grid" aria-label="Healthcare statistics">
+        <app-dashboard-stat-card
+          label="Total Operations"
+          [value]="stats.totalOperations"
+          hint="Completed visits (admin approved)"
+          icon="✓"
+          accent="teal"
+        />
+        <app-dashboard-stat-card
+          label="Total Patients"
+          [value]="stats.totalPatients"
+          hint="Unique patients with appointments"
+          icon="👥"
+          accent="blue"
+        />
+        <app-dashboard-stat-card
+          label="New Patients"
+          [value]="stats.newPatients"
+          hint="First booking in the last 7 days"
+          icon="✦"
+          accent="violet"
+        />
+        <app-dashboard-stat-card
+          label="Pending Today"
+          [value]="stats.todayAppointments"
+          hint="Appointments scheduled today"
+          icon="📅"
+          accent="amber"
+        />
+        <app-dashboard-stat-card
+          label="Awaiting Action"
+          [value]="stats.pendingAppointments"
+          hint="Needs your approval"
+          icon="!"
+          accent="rose"
+        />
+        <app-dashboard-stat-card
+          label="All Appointments"
+          [value]="stats.totalAppointments"
+          hint="Total in your queue"
+          icon="📋"
+          accent="blue"
+        />
+      </section>
+
+      <section class="analytics-row">
+        <div class="chart-card">
+          <div class="chart-toolbar">
+            <span class="chart-toolbar__label">Activity breakdown</span>
+            <div class="period-tabs" role="tablist">
+              <button
+                type="button"
+                role="tab"
+                [class.active]="chartPeriod === 'daily'"
+                [attr.aria-selected]="chartPeriod === 'daily'"
+                (click)="setChartPeriod('daily')"
+              >
+                Daily
+              </button>
+              <button
+                type="button"
+                role="tab"
+                [class.active]="chartPeriod === 'weekly'"
+                [attr.aria-selected]="chartPeriod === 'weekly'"
+                (click)="setChartPeriod('weekly')"
+              >
+                Weekly
+              </button>
+              <button
+                type="button"
+                role="tab"
+                [class.active]="chartPeriod === 'monthly'"
+                [attr.aria-selected]="chartPeriod === 'monthly'"
+                (click)="setChartPeriod('monthly')"
+              >
+                Monthly
+              </button>
+            </div>
+          </div>
+          <app-dashboard-pie-chart [segments]="pieSegments" title="Appointment status mix" />
+        </div>
+      </section>
+
+      <section class="queues" *ngIf="actionQueue.length">
+        <h3>Needs your action (pending)</h3>
+        <div class="card" *ngFor="let item of actionQueue">
+          <header>
+            <h4>{{ item.patientName }}</h4>
+            <span class="badge">{{ item.appointmentDate }} · {{ item.appointmentTime }}</span>
+          </header>
+          <p class="detail" *ngIf="item.symptoms"><strong>Symptoms:</strong> {{ item.symptoms }}</p>
+          <p class="status-line">Status: <strong>{{ item.status | appointmentStatusLabel }}</strong></p>
+          <app-doctor-appointment-actions [item]="item" />
+        </div>
+      </section>
+
+      <section class="queues" *ngIf="doctorApprovedQueue.length">
+        <h3>Approved — send to admin</h3>
+        <div class="card" *ngFor="let item of doctorApprovedQueue">
+          <h4>{{ item.patientName }} — {{ item.appointmentDate }} {{ item.appointmentTime }}</h4>
+          <p class="detail" *ngIf="item.symptoms">{{ item.symptoms }}</p>
+          <app-doctor-appointment-actions [item]="item" />
+        </div>
+      </section>
+
+      <section class="queues" *ngIf="waitingAdminQueue.length">
+        <h3>Awaiting admin</h3>
+        <div class="card muted" *ngFor="let item of waitingAdminQueue">
+          <h4>{{ item.patientName }} — {{ item.appointmentDate }} {{ item.appointmentTime }}</h4>
+          <p>Status: {{ item.status | appointmentStatusLabel }}</p>
+        </div>
+      </section>
+
+      <section class="queues" *ngIf="finalizedForFeedback.length">
+        <h3>Admin approved — visit notes</h3>
+        <div class="card" *ngFor="let item of finalizedForFeedback">
+          <h4>{{ item.patientName }} — {{ item.appointmentDate }} {{ item.appointmentTime }}</h4>
+          <textarea [(ngModel)]="notes[item.id]" placeholder="Clinical notes / feedback"></textarea>
+          <button type="button" class="save-btn" (click)="addFeedback(item.id)">Save feedback</button>
+        </div>
+      </section>
+
+      <p class="empty" *ngIf="!appointments.length && !appointmentsStreamError">
+        No appointments yet. Patients must book your directory profile; use seed email (e.g. doctor1@clinic.test) or ask
+        admin to link your account.
+      </p>
+    </main>
+  </div>
+</app-healthcare-shell>

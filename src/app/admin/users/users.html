@@ -1,0 +1,26 @@
+<div class="layout">
+  <app-sidebar [links]="[{label:'Dashboard',url:'/admin'},{label:'Appointments',url:'/admin/appointments'},{label:'Users',url:'/admin/users'},{label:'Link doctor records',url:'/admin/doctor-records'}]"></app-sidebar>
+  <main class="content">
+    <h3>Manage Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of doctors.concat(patients)">
+          <td><input [(ngModel)]="draftNames[user.uid]" [placeholder]="user.fullName" /></td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td><button (click)="save(user)">Save</button></td>
+          <td><button (click)="remove(user.uid)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+</div>

@@ -1,0 +1,29 @@
+.healthcare-page {
+  position: relative;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.healthcare-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/BLUR%20BG.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.healthcare-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgb(15 118 110 / 0.88) 0%, rgb(15 46 69 / 0.82) 100%);
+  backdrop-filter: blur(2px);
+}
+
+.healthcare-overlay {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}

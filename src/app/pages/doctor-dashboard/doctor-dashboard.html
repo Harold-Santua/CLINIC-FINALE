@@ -1,0 +1,23 @@
+<section class="layout">
+  <header>
+    <h2>Doctor Portal</h2>
+    <button (click)="logout()">Logout</button>
+  </header>
+
+  <article class="card">
+    <h3>Assigned Appointments</h3>
+    <p *ngIf="appointments.length === 0">No assigned appointments.</p>
+    <div class="appt" *ngFor="let appointment of appointments">
+      <p>
+        <strong>{{ appointment.date }} {{ appointment.time }}</strong>
+        - {{ appointment.patientName }} ({{ appointment.status }})
+      </p>
+      <p>Patient ID: {{ appointment.patientId }}</p>
+      <label>
+        Doctor Notes / Feedback
+        <textarea rows="3" [(ngModel)]="noteDrafts[appointment.id]"></textarea>
+      </label>
+      <button (click)="saveNote(appointment.id)">Save Notes</button>
+    </div>
+  </article>
+</section>

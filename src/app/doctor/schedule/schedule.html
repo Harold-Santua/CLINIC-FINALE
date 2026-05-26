@@ -1,0 +1,46 @@
+<app-healthcare-shell>
+  <div class="role-dashboard-layout">
+    <app-sidebar [links]="[{label:'Dashboard',url:'/doctor'},{label:'Schedule',url:'/doctor/schedule'}]"></app-sidebar>
+    <main class="content">
+      <h3>Schedule Calendar</h3>
+      <div class="alert alert-error" *ngIf="appointmentsStreamError" role="alert">{{ appointmentsStreamError }}</div>
+      <p class="intro">Approve pending visits,send to admin for final sign-off.</p>
+
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'Pending Appointments', rows: pendingSchedule }"></ng-container>
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'Approved by Doctor', rows: doctorApprovedSchedule }"></ng-container>
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'Waiting Admin Approval', rows: waitingAdminSchedule }"></ng-container>
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'Final Approved', rows: finalApprovedSchedule, hideActions: true }"></ng-container>
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'Rejected', rows: rejectedSchedule, hideActions: true }"></ng-container>
+      <ng-container *ngTemplateOutlet="tableSection; context: { title: 'All Appointments', rows: schedule }"></ng-container>
+    </main>
+  </div>
+</app-healthcare-shell>
+
+<ng-template #tableSection let-title="title" let-rows="rows" let-hideActions="hideActions">
+  <h4>{{ title }}</h4>
+  <table class="schedule-table">
+    <thead>
+      <tr>
+        <th>Patient</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Symptoms</th>
+        <th>Status</th>
+        <th *ngIf="!hideActions">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of rows">
+        <td>{{ item.patientName }}</td>
+        <td>{{ item.appointmentDate }}</td>
+        <td>{{ item.appointmentTime }}</td>
+        <td>{{ item.symptoms || '—' }}</td>
+        <td><span class="status-badge" [class]="statusClass(item.status)">{{ item.status | appointmentStatusLabel }}</span></td>
+        <td *ngIf="!hideActions"><app-doctor-appointment-actions [item]="item" /></td>
+      </tr>
+      <tr *ngIf="!rows.length">
+        <td [attr.colspan]="hideActions ? 5 : 6" class="empty-state">No appointments in this section.</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

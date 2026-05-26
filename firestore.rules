@@ -1,0 +1,127 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function authed() {
+      return request.auth != null;
+    }
+
+    function userData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function role() {
+      return userData().role;
+    }
+
+    function isAdmin() {
+      return authed() && role() == 'admin';
+    }
+
+    function isDoctor() {
+      return authed() && role() == 'doctor';
+    }
+
+    function isPatient() {
+      return authed() && role() == 'patient';
+    }
+
+    function doctorRecordId() {
+      return userData().doctorRecordId;
+    }
+
+    /** Prevent tampering with booking identity fields on non-admin updates. */
+    function appointmentCoreUnchanged() {
+      return request.resource.data.patientId == resource.data.patientId
+        && request.resource.data.doctorId == resource.data.doctorId
+        && request.resource.data.appointmentDate == resource.data.appointmentDate
+        && request.resource.data.appointmentTime == resource.data.appointmentTime
+        && request.resource.data.patientName == resource.data.patientName
+        && request.resource.data.doctorName == resource.data.doctorName;
+    }
+
+    match /users/{userId} {
+      allow read: if authed() && (request.auth.uid == userId || isAdmin());
+      allow create: if authed() && request.auth.uid == userId;
+      allow update: if authed() && (request.auth.uid == userId || isAdmin());
+      allow delete: if authed() && isAdmin();
+    }
+
+    match /doctors/{doctorId} {
+      allow read: if authed();
+      allow write: if authed();
+    }
+
+    match /appointments/{appointmentId} {
+      allow read: if authed() && (
+        isAdmin()
+        || (isPatient() && resource.data.patientId == request.auth.uid)
+        || (isDoctor() && doctorRecordId() != null && resource.data.doctorId == doctorRecordId())
+      );
+
+      allow create: if authed() && isPatient()
+        && request.resource.data.patientId == request.auth.uid
+        && request.resource.data.status == 'pending';
+
+      allow update: if authed() && (
+        (isAdmin() && appointmentCoreUnchanged())
+        || (isDoctor() && doctorRecordId() != null && resource.data.doctorId == doctorRecordId() && appointmentCoreUnchanged())
+        || (isPatient() && resource.data.patientId == request.auth.uid && appointmentCoreUnchanged())
+      );
+
+      allow delete: if authed() && isAdmin();
+    }
+
+    match /appointmentSlots/{slotId} {
+      allow read, write: if authed();
+    }
+
+    match /patientAppointmentSlots/{slotId} {
+      allow read, write: if authed();
+    }
+
+    match /doctorNotifications/{notificationId} {
+      allow read, write: if authed();
+    }
+
+    match /patientAppointmentHistory/{historyId} {
+      allow read, write: if authed();
+    }
+
+    match /loginHistory/{entryId} {
+      allow read, write: if authed();
+    }
+
+    match /loginSessions/{sessionId} {
+      allow read: if authed() && (
+        isAdmin()
+        || resource.data.userId == request.auth.uid
+      );
+      allow create: if authed() && request.resource.data.userId == request.auth.uid;
+      allow update: if authed() && (
+        isAdmin()
+        || resource.data.userId == request.auth.uid
+      );
+      allow delete: if false;
+    }
+
+    match /doctorSchedules/{scheduleId} {
+      allow read: if authed();
+      allow write: if authed();
+    }
+
+    match /medicalRecords/{recordId} {
+      allow read: if authed() && (
+        isAdmin()
+        || resource.data.patientId == request.auth.uid
+        || (isDoctor() && doctorRecordId() != null && resource.data.doctorId == doctorRecordId())
+      );
+      allow write: if authed();
+    }
+
+    match /userEmails/{emailKey} {
+      allow read, write: if authed();
+    }
+  }
+}

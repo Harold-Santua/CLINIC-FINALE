@@ -1,0 +1,8 @@
+<article class="stat-card" [class]="'stat-card--' + accent">
+  <div class="stat-card__icon" aria-hidden="true">{{ icon }}</div>
+  <div class="stat-card__body">
+    <p class="stat-card__label">{{ label }}</p>
+    <p class="stat-card__value">{{ value }}</p>
+    <p class="stat-card__hint" *ngIf="hint">{{ hint }}</p>
+  </div>
+</article>

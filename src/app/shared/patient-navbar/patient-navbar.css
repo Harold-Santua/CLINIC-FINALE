@@ -1,0 +1,36 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #0f766e;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a.active {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.logout-btn {
+  border: 1px solid #cde7e5;
+  background: #fff;
+  color: #115e59;
+  border-radius: 8px;
+  height: 2rem;
+  padding: 0 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}

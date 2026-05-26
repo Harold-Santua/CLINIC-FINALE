@@ -1,0 +1,26 @@
+<section class="container">
+  <h1>Clinic Portal Login</h1>
+  <p>Use your Firebase emulator account and select your role.</p>
+
+  <form (ngSubmit)="login()">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" [(ngModel)]="email" />
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" [(ngModel)]="password" />
+
+    <fieldset>
+      <legend>Role</legend>
+      <label><input type="radio" name="role" value="admin" [(ngModel)]="selectedRole" /> Admin</label>
+      <label><input type="radio" name="role" value="doctor" [(ngModel)]="selectedRole" /> Doctor</label>
+      <label><input type="radio" name="role" value="patient" [(ngModel)]="selectedRole" /> Patient</label>
+    </fieldset>
+
+    <p class="warning" *ngIf="warningMessage">{{ warningMessage }}</p>
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button type="submit" [disabled]="isLoading">{{ isLoading ? 'Signing In...' : 'Sign In' }}</button>
+  </form>
+
+  <a routerLink="/forgot-password">Forgot Password?</a>
+</section>

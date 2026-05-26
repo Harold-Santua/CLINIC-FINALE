@@ -1,0 +1,65 @@
+<div class="backdrop" *ngIf="open && doctor" (click)="close()" role="presentation"></div>
+
+<div
+  class="dialog"
+  *ngIf="open && doctor"
+  role="dialog"
+  aria-modal="true"
+  [attr.aria-labelledby]="'booking-title-' + doctor.id"
+>
+  <header class="dialog-header">
+    <h3 [id]="'booking-title-' + doctor.id">Pre-Arrange Visit</h3>
+    <button type="button" class="icon-close" (click)="close()" aria-label="Close">×</button>
+  </header>
+
+  <p class="doctor-line">
+    <strong>{{ doctor.doctorName }}</strong>
+    <span class="muted">{{ doctor.specialization }} · {{ doctor.branch }}</span>
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="booking-form">
+    <div class="field">
+      <label for="appt-date">Preferred date</label>
+      <input
+        id="appt-date"
+        type="date"
+        formControlName="appointmentDate"
+        [min]="minDate"
+      />
+      <small *ngIf="form.controls['appointmentDate'].touched && form.controls['appointmentDate'].invalid">
+        Please select a date.
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="appt-time">Preferred time</label>
+      <input
+        id="appt-time"
+        type="time"
+        formControlName="appointmentTime"
+        min="08:00"
+        max="17:00"
+        step="1800"
+      />
+      <small class="hint">Clinic hours: 8:00 AM – 5:00 PM. Each booking blocks 1 hour.</small>
+      <small class="warn" *ngIf="blockedTimesLabel">Doctor unavailable: {{ blockedTimesLabel }}</small>
+      <small class="warn" *ngIf="slotConflictMessage">{{ slotConflictMessage }}</small>
+      <small *ngIf="form.controls['appointmentTime'].touched && form.controls['appointmentTime'].invalid">
+        Please select a time.
+      </small>
+    </div>
+
+    <div class="field">
+      <label for="appt-symptoms">Symptoms / visit details</label>
+      <textarea id="appt-symptoms" formControlName="symptoms" rows="3" placeholder="Describe symptoms or reason for visit"></textarea>
+      <small *ngIf="form.controls['symptoms'].touched && form.controls['symptoms'].invalid">
+        Please describe your symptoms (at least 3 characters).
+      </small>
+    </div>
+
+    <footer class="dialog-actions">
+      <button type="button" class="secondary" (click)="close()">Cancel</button>
+      <button type="submit" class="primary">Submit request</button>
+    </footer>
+  </form>
+</div>

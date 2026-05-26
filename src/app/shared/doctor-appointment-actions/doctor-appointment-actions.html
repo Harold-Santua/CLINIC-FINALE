@@ -1,0 +1,5 @@
+<div class="action-btns" *ngIf="showApprove || showReject || showSendToAdmin">
+  <button type="button" class="btn primary" *ngIf="showApprove" (click)="approve()">Approve</button>
+  <button type="button" class="btn secondary" *ngIf="showSendToAdmin" (click)="sendToAdmin()">Send to Admin</button>
+  <button type="button" class="btn danger" *ngIf="showReject" (click)="reject()">Reject</button>
+</div>

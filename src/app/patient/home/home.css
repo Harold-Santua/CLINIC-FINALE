@@ -1,0 +1,159 @@
+.page-shell {
+  position: relative;
+  min-height: 100vh;
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: url('/BLUR%20BG.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgb(245 249 252 / 0.92) 0%, rgb(232 242 250 / 0.94) 100%);
+  backdrop-filter: blur(1px);
+}
+
+.nav-layer {
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2.5rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 1.75rem 1.25rem;
+  background: rgb(255 255 255 / 0.96);
+  border: 1px solid #d8e5f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgb(16 52 77 / 8%);
+}
+
+.eyebrow {
+  margin: 0;
+  color: #1279c5;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 0.9rem;
+}
+
+.hero h1 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: 2rem;
+  color: #0f2e45;
+}
+
+.lead {
+  margin: 0 0 1.1rem;
+  color: #4a657a;
+  line-height: 1.5;
+  max-width: 36rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta {
+  display: inline-block;
+  padding: 0.65rem 1.35rem;
+  border-radius: 10px;
+  background: #0f78c1;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cta:hover {
+  filter: brightness(1.06);
+}
+
+.card {
+  border: 1px solid #d8e5f0;
+  border-radius: 12px;
+  padding: 1.1rem 1rem 1.25rem;
+  background: rgb(255 255 255 / 0.96);
+  box-shadow: 0 4px 12px rgb(16 52 77 / 8%);
+}
+
+.card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+  color: #0f2e45;
+}
+
+.card-hint {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: #557185;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+th,
+td {
+  border: 1px solid #d8e5f0;
+  padding: 0.55rem 0.5rem;
+  text-align: left;
+}
+
+th {
+  background: #f5f9fc;
+  color: #355066;
+  font-weight: 600;
+}
+
+.empty {
+  margin: 0;
+  color: #557185;
+  font-size: 0.95rem;
+}
+
+.linkish {
+  border: none;
+  background: none;
+  color: #0f5f95;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.linkish:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.feedback-cell {
+  color: #b45309;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+}

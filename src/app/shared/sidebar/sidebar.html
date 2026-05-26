@@ -1,0 +1,6 @@
+<aside class="sidebar">
+  <div class="menu-links">
+    <a *ngFor="let link of links" [routerLink]="link.url">{{ link.label }}</a>
+  </div>
+  <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+</aside>

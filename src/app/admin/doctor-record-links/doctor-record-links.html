@@ -1,0 +1,62 @@
+<div class="layout">
+  <app-sidebar
+    [links]="[
+      { label: 'Dashboard', url: '/admin' },
+      { label: 'Appointments', url: '/admin/appointments' },
+      { label: 'Users', url: '/admin/users' },
+      { label: 'Link doctor records', url: '/admin/doctor-records' },
+    ]"
+  ></app-sidebar>
+  <main class="content">
+    <h2>Link doctor records</h2>
+    <p class="lead">
+      Patient bookings store the Firestore <code>doctors/&lt;id&gt;</code> document id on each appointment. The doctor’s
+      <code>users/&lt;uid&gt;.doctorRecordId</code> must match that id, or they will not see requests and security rules
+      will block reads.
+    </p>
+
+    <section class="panel">
+      <h3>Assign link</h3>
+      <div class="row">
+        <label for="doc-user">Doctor account</label>
+        <select id="doc-user" [(ngModel)]="selectedUserUid">
+          <option value="">Choose user…</option>
+          <option *ngFor="let u of doctorUsers" [value]="u.uid">{{ u.fullName }} — {{ u.email }}</option>
+        </select>
+      </div>
+      <div class="row">
+        <label for="doc-catalog">Directory doctor (catalog)</label>
+        <select id="doc-catalog" [(ngModel)]="selectedCatalogDoctorId">
+          <option value="">Choose directory profile…</option>
+          <option *ngFor="let d of catalogDoctors" [value]="d.id">{{ d.doctorName }} — {{ d.email }}</option>
+        </select>
+      </div>
+      <button type="button" class="primary" (click)="link()">Save doctorRecordId</button>
+    </section>
+
+    <section class="panel">
+      <h3>Current links</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Account email</th>
+            <th>Name</th>
+            <th>doctorRecordId</th>
+            <th>Directory name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of doctorUsers">
+            <td>{{ u.email }}</td>
+            <td>{{ u.fullName }}</td>
+            <td><code>{{ u.doctorRecordId || '—' }}</code></td>
+            <td>{{ resolveCatalogName(u.doctorRecordId) }}</td>
+          </tr>
+          <tr *ngIf="!doctorUsers.length">
+            <td colspan="4">No doctor-role users yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>

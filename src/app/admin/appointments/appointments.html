@@ -1,0 +1,113 @@
+<app-healthcare-shell>
+  <div class="role-dashboard-layout">
+    <app-sidebar [links]="[{label:'Dashboard',url:'/admin'},{label:'Appointments',url:'/admin/appointments'},{label:'Users',url:'/admin/users'},{label:'Link doctor records',url:'/admin/doctor-records'}]"></app-sidebar>
+    <main class="content">
+      <h3>Appointment Management</h3>
+      <p class="intro">Filter visits, approve or reject with patient feedback, and monitor doctor availability (1-hour blocks).</p>
+
+      <section class="filter-bar">
+        <label>
+          Doctor
+          <select [(ngModel)]="filterDoctorId">
+            <option value="">All doctors</option>
+            <option *ngFor="let d of doctorOptions" [value]="d.id">{{ d.name }}</option>
+          </select>
+        </label>
+        <label>
+          Date
+          <input type="date" [(ngModel)]="filterDate" (ngModelChange)="onFilterDateChange()" />
+        </label>
+        <label>
+          Status
+          <select [(ngModel)]="filterStatus">
+            <option value="">All statuses</option>
+            <option *ngFor="let s of statusOptions" [value]="s">{{ s | appointmentStatusLabel }}</option>
+          </select>
+        </label>
+        <label>
+          Time
+          <select [(ngModel)]="filterTime">
+            <option value="">Any time</option>
+            <option *ngFor="let t of ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00']" [value]="t">{{ t }}</option>
+          </select>
+        </label>
+        <label>
+          Availability
+          <select [(ngModel)]="filterAvailability">
+            <option value="all">All</option>
+            <option value="available">Available doctors</option>
+            <option value="unavailable">Unavailable (has block)</option>
+            <option value="in_active_block">In active appointment now</option>
+          </select>
+        </label>
+        <button type="button" class="clear-btn" (click)="clearFilters()">Clear filters</button>
+      </section>
+
+      <h4>Doctor availability (selected date)</h4>
+      <div class="availability-grid">
+        <article *ngFor="let row of doctorAvailabilityRows" class="availability-card">
+          <strong>{{ row.doctor.doctorName }}</strong>
+          <span [class]="row.busy ? 'badge-busy' : 'badge-available'">{{ row.label }}</span>
+        </article>
+      </div>
+
+      <h4>Waiting for admin (doctor submitted)</h4>
+      <table class="appt-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Symptoms</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of waitingAdminQueue">
+            <td>{{ item.patientName }}</td>
+            <td>{{ item.doctorName }}</td>
+            <td>{{ item.appointmentDate }}</td>
+            <td>{{ item.appointmentTime }}</td>
+            <td>{{ item.symptoms || '—' }}</td>
+            <td>{{ item.status | appointmentStatusLabel }}</td>
+            <td><app-admin-appointment-actions [item]="item" /></td>
+          </tr>
+          <tr *ngIf="!waitingAdminQueue.length">
+            <td colspan="7" class="empty-cell">No requests awaiting final approval.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Filtered appointments</h4>
+      <table class="appt-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Doctor</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Symptoms</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredAppointments">
+            <td>{{ item.patientName }}</td>
+            <td>{{ item.doctorName }}</td>
+            <td>{{ item.appointmentDate }}</td>
+            <td>{{ item.appointmentTime }}</td>
+            <td>{{ item.symptoms || '—' }}</td>
+            <td>{{ item.status | appointmentStatusLabel }}</td>
+            <td><app-admin-appointment-actions [item]="item" /></td>
+          </tr>
+          <tr *ngIf="!filteredAppointments.length">
+            <td colspan="7" class="empty-cell">No appointments match your filters.</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</app-healthcare-shell>

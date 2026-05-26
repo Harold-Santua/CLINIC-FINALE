@@ -1,0 +1,8 @@
+<nav class="nav">
+  <div class="links">
+    <a routerLink="/patient" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/patient/doctors" routerLinkActive="active">Meet Our Doctors</a>
+    <a routerLink="/patient/contact" routerLinkActive="active">Contact</a>
+  </div>
+  <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+</nav>

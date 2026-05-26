@@ -1,0 +1,45 @@
+<div class="login-page">
+  <div class="login-bg" aria-hidden="true"></div>
+  <section class="auth-card">
+    <img [src]="logoPath" alt="Hospital Logo" />
+    <h1>Clinic Appointment</h1>
+    <p class="tagline">Secure sign-in with the local healthcare emulator suite.</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="field">
+        <label for="login-email">Email</label>
+        <input id="login-email" type="email" formControlName="email" autocomplete="username" />
+        <small *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['required']">Email is required.</small>
+        <small *ngIf="form.controls['email'].touched && form.controls['email'].errors?.['email'] && !form.controls['email'].errors?.['required']">
+          Enter a valid email address.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input id="login-password" type="password" formControlName="password" autocomplete="current-password" />
+        <small *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['required']">Password is required.</small>
+        <small *ngIf="form.controls['password'].touched && form.controls['password'].errors?.['minlength'] && !form.controls['password'].errors?.['required']">
+          Password must be at least 6 characters.
+        </small>
+      </div>
+
+      <div class="field">
+        <label for="login-role">Role</label>
+        <select id="login-role" formControlName="role">
+          <option value="admin">Admin</option>
+          <option value="doctor">Doctor</option>
+          <option value="patient">Patient</option>
+        </select>
+        <small *ngIf="form.controls['role'].touched && form.controls['role'].invalid">Please select a role.</small>
+      </div>
+
+      <button type="submit" class="submit-btn">Login</button>
+    </form>
+
+    <div class="links">
+      <a routerLink="/register">Register</a>
+      <a routerLink="/forgot-password">Forgot Password</a>
+    </div>
+  </section>
+</div>

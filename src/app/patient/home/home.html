@@ -1,0 +1,65 @@
+<div class="page-shell">
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="nav-layer">
+    <app-patient-navbar></app-patient-navbar>
+  </div>
+
+  <main class="content">
+    <section class="hero">
+      <p class="eyebrow">Patient Services</p>
+      <h1>Welcome</h1>
+      <p class="lead">
+        Book a visit with a specialist through <strong>Meet Our Doctors</strong>, then track your requests here.
+      </p>
+      <a routerLink="/patient/doctors" class="cta">Meet Our Doctors</a>
+    </section>
+
+    <section class="card">
+      <h2>Your appointment requests</h2>
+      <p class="card-hint">Status updates from the clinic appear below after you use Pre-Arrange Visit.</p>
+
+      <div class="table-wrap" *ngIf="appointments.length; else noAppts">
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor</th>
+              <th>Date</th>
+              <th>Time</th>
+              <th>Status</th>
+              <th>Feedback</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of appointments">
+              <td>{{ item.doctorName }}</td>
+              <td>{{ item.appointmentDate }}</td>
+              <td>{{ item.appointmentTime }}</td>
+              <td>{{ item.status | appointmentStatusLabel }}</td>
+              <td>
+                <span *ngIf="item.adminRejectionReason || item.feedback; else noFeedback" class="feedback-cell">
+                  {{ item.adminRejectionReason || item.feedback }}
+                </span>
+                <ng-template #noFeedback>—</ng-template>
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="linkish"
+                  (click)="cancel(item.id)"
+                  [disabled]="!canWithdraw(item)"
+                >
+                  Withdraw
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noAppts>
+        <p class="empty">No appointments yet. Browse doctors to schedule your first visit.</p>
+      </ng-template>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,100 @@
+<div class="page-shell">
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="nav-layer">
+    <app-patient-navbar></app-patient-navbar>
+  </div>
+
+  <main class="content">
+    <section class="hero">
+      <p class="eyebrow">Patient Services</p>
+      <h2>Meet Our Doctors</h2>
+      <p class="subtext">Browse specialists by branch, field, and HMO accreditation to plan your consultation quickly.</p>
+    </section>
+
+    <section class="filters">
+      <div class="field wide">
+        <label for="search">Search doctor</label>
+        <input
+          id="search"
+          [(ngModel)]="search"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Enter doctor name"
+        />
+      </div>
+
+      <div class="field">
+        <label for="branch">Branch</label>
+        <select id="branch" [(ngModel)]="branch" (ngModelChange)="onFilterChange()">
+          <option value="">All branches</option>
+          <option *ngFor="let option of branchOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="specialization">Specialization</label>
+        <select id="specialization" [(ngModel)]="specialization" (ngModelChange)="onFilterChange()">
+          <option value="">All specializations</option>
+          <option *ngFor="let option of specializationOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="hmo">HMO</label>
+        <select id="hmo" [(ngModel)]="hmo" (ngModelChange)="onFilterChange()">
+          <option value="">All HMOs</option>
+          <option *ngFor="let option of hmoOptions" [value]="option">{{ option }}</option>
+        </select>
+      </div>
+
+      <button class="clear-btn" type="button" (click)="clearFilters()">Clear Filters</button>
+    </section>
+
+    <section class="doctors-grid" *ngIf="paginatedDoctors.length; else emptyState">
+      <article class="doctor-card" *ngFor="let doctor of paginatedDoctors">
+        <header class="doctor-header">
+          <h3>{{ doctor.doctorName }}</h3>
+          <span class="branch-chip">{{ doctor.branch }}</span>
+        </header>
+
+        <p class="specialty">{{ doctor.specialization }}</p>
+        <p class="sub-specialty">{{ doctor.subSpecialization }}</p>
+
+        <div class="meta">
+          <p><strong>HMO:</strong> {{ doctor.hmo }}</p>
+          <p><strong>Email:</strong> {{ doctor.email }}</p>
+        </div>
+
+        <div class="actions">
+          <button type="button" class="primary" (click)="preArrangeVisit(doctor)">Pre-Arrange Visit</button>
+          <button type="button" class="secondary" (click)="toggleExpand(doctor.id)">
+            {{ expandedId === doctor.id ? 'Hide Details' : 'Show Details' }}
+          </button>
+        </div>
+
+        <section class="expanded" *ngIf="expandedId === doctor.id">
+          <p>Consultation branch: {{ doctor.branch }}</p>
+          <p>Use Pre-Arrange Visit to choose a date and time. Your request is sent to the clinic and your doctor.</p>
+        </section>
+      </article>
+    </section>
+
+    <ng-template #emptyState>
+      <section class="empty">
+        <h3>No doctors found</h3>
+        <p>Try adjusting your filters or clear your search.</p>
+      </section>
+    </ng-template>
+
+    <footer class="pager">
+      <button type="button" (click)="previousPage()" [disabled]="page === 1">Previous</button>
+      <span>Page {{ page }} of {{ totalPages }}</span>
+      <button type="button" (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+    </footer>
+  </main>
+</div>
+
+<app-appointment-booking-dialog
+  [doctor]="bookingDoctor"
+  [open]="bookingDoctor !== null"
+  (openChange)="onBookingOpenChange($event)"
+></app-appointment-booking-dialog>

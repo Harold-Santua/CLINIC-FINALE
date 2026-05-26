@@ -1,0 +1,35 @@
+<section class="layout">
+  <header>
+    <h2>Patient Portal</h2>
+    <button (click)="logout()">Logout</button>
+  </header>
+
+  <article class="card">
+    <h3>Book an Appointment</h3>
+    <label>Date <input type="date" [(ngModel)]="appointmentDate" /></label>
+    <label>Time <input type="time" [(ngModel)]="appointmentTime" /></label>
+    <label>
+      Doctor
+      <select [(ngModel)]="selectedDoctorId">
+        <option value="">Select a doctor</option>
+        <option *ngFor="let doctor of doctors" [value]="doctor.uid">
+          {{ doctor.displayName || doctor.email }}
+        </option>
+      </select>
+    </label>
+    <button (click)="book()">Book Appointment</button>
+    <p class="warning" *ngIf="warning">{{ warning }}</p>
+    <p class="success" *ngIf="message">{{ message }}</p>
+  </article>
+
+  <article class="card">
+    <h3>My Appointments</h3>
+    <p *ngIf="appointments.length === 0">No appointments yet.</p>
+    <ul>
+      <li *ngFor="let appointment of appointments">
+        {{ appointment.date }} {{ appointment.time }} with Dr. {{ appointment.doctorName }} -
+        <strong>{{ appointment.status }}</strong>
+      </li>
+    </ul>
+  </article>
+</section>

@@ -29,6 +29,9 @@ yarn-error.log
 !.vscode/mcp.json
 .history/*
 
+# Firebase Emulator export (local persistence; do not commit unless team shares seed data)
+.firebase/emulator-data
+
 # Miscellaneous
 /.angular/cache
 .sass-cache/

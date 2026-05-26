@@ -1,0 +1,27 @@
+<div class="admin-actions" *ngIf="showFinalActions">
+  <div class="action-btns">
+    <button type="button" class="btn primary" (click)="finalApprove()">Final approve</button>
+    <button type="button" class="btn danger" *ngIf="!showRejectForm" (click)="toggleReject()">Final reject</button>
+    <button type="button" class="btn secondary" *ngIf="showRejectForm" (click)="cancelReject()">Cancel</button>
+  </div>
+
+  <div class="reject-form" *ngIf="showRejectForm">
+    <p class="reject-label">Rejection feedback (shown to patient)</p>
+    <label class="preset" *ngFor="let preset of rejectionPresets">
+      <input
+        type="radio"
+        [name]="'reject-' + item.id"
+        [value]="preset"
+        [(ngModel)]="rejectionReason"
+      />
+      {{ preset }}
+    </label>
+    <textarea
+      [(ngModel)]="customReason"
+      rows="3"
+      placeholder="Or enter custom feedback for the patient…"
+    ></textarea>
+    <button type="button" class="btn danger confirm" (click)="finalReject()">Confirm reject</button>
+  </div>
+</div>
+<span class="dash" *ngIf="!showFinalActions">—</span>

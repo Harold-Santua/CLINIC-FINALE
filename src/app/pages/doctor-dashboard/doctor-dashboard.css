@@ -1,0 +1,32 @@
+.layout {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  display: grid;
+  gap: 1rem;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.appt {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+textarea,
+button {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.5rem;
+}

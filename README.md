@@ -1,59 +1,65 @@
 # Clinicfinale
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.8.
+Angular clinic appointment system using **Firebase Emulator Suite only** (no cloud Firebase).
 
-## Development server
+## Quick start
 
-To start a local development server, run:
-
-```bash
-ng serve
-```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1. Start emulators (with persistence)
 
 ```bash
-ng generate component component-name
+npm run emulators
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Data is imported from and exported to `.firebase/emulator-data` on start/stop, so registered users and Firestore records survive emulator restarts.
+
+### 2. Start the app
 
 ```bash
-ng generate --help
+npm start
 ```
 
-## Building
+Open `http://localhost:4200/`.
 
-To build the project run:
+## Firebase (emulator only)
+
+| Feature | Backend |
+|--------|---------|
+| Login, register, sessions, forgot password | **Auth emulator** (port 9099) |
+| Appointments, users, doctors | **Firestore emulator** (port 8080) |
+| Emulator UI | port **4000** |
+
+### Emulator ports
+
+- Auth: `9099`
+- Firestore: `8080`
+- Emulator UI: `http://127.0.0.1:4000`
+
+### Persistence
+
+- `npm run emulators` — starts Auth + Firestore with `--import` and `--export-on-exit` to `.firebase/emulator-data`
+- `npm run emulators:export` — manually export current emulator state (while emulators are running)
+- Always stop emulators with **Ctrl+C** so export-on-exit runs
+
+### Forgot password (local)
+
+1. Register an account on the register page.
+2. Open **Forgot Password**, enter the same email.
+3. Open **Emulator UI → Authentication** (`http://127.0.0.1:4000`) and copy the reset link, **or** open the link if it routes to `/reset-password?oobCode=...`.
+4. Set a new password on the reset page, then sign in with the new password on the emulator.
+
+No real email is sent.
+
+## Implemented roles
+
+- Login: email/password + role selection + forgot password
+- Admin: monitors activity and approves/rejects appointments
+- Doctor: dashboard with live stats, pie chart, appointment queues
+- Patient: books appointments and sees them on the dashboard
+
+## Development
 
 ```bash
-ng build
+ng serve          # dev server
+ng build          # production build
+ng test           # unit tests
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.

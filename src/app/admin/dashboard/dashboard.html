@@ -1,0 +1,31 @@
+<app-healthcare-shell>
+  <div class="role-dashboard-layout">
+    <app-sidebar
+      [links]="[
+        { label: 'Dashboard', url: '/admin' },
+        { label: 'Appointments', url: '/admin/appointments' },
+        { label: 'Users', url: '/admin/users' },
+        { label: 'Link doctor records', url: '/admin/doctor-records' }
+      ]"
+    ></app-sidebar>
+    <main class="content">
+      <header class="page-header">
+        <h2>Admin Dashboard</h2>
+        <button type="button" class="logout-btn" (click)="logout()">Logout</button>
+      </header>
+      <p class="admin-hint">
+        Monitor clinic activity in real time.
+        <a routerLink="/admin/appointments">Manage appointments</a>
+        · Doctors in active blocks now: <strong>{{ busyDoctorsCount }}</strong>
+      </p>
+      <section class="stats">
+        <article class="stat-card">Total Doctors: {{ doctors.length }}</article>
+        <article class="stat-card">Total Patients: {{ patients.length }}</article>
+        <article class="stat-card">Patient pending (awaiting doctor): {{ patientPendingCount }}</article>
+        <article class="stat-card">Awaiting admin final decision: {{ waitingAdminCount }}</article>
+        <article class="stat-card">Admin approved (final): {{ adminApprovedCount }}</article>
+        <article class="stat-card">Login History Entries: {{ loginHistoryCount }}</article>
+      </section>
+    </main>
+  </div>
+</app-healthcare-shell>

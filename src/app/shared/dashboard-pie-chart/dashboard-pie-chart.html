@@ -1,0 +1,15 @@
+<section class="pie-panel">
+  <header class="pie-panel__header">
+    <h3>{{ title }}</h3>
+  </header>
+  <div class="pie-panel__chart-wrap">
+    <div class="pie-panel__chart" [style.background]="gradient" role="img" [attr.aria-label]="title"></div>
+    <ul class="pie-panel__legend">
+      <li *ngFor="let segment of segments">
+        <span class="swatch" [style.background]="segment.color"></span>
+        <span class="label">{{ segment.label }}</span>
+        <span class="meta">{{ segment.value }} ({{ segment.percent }}%)</span>
+      </li>
+    </ul>
+  </div>
+</section>

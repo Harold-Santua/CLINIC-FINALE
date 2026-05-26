@@ -1,22 +1,9 @@
 import { Routes } from '@angular/router';
-import { Login } from './login/login';
-import { Home } from './home/home';
-import { Admin } from './admin/admin';
-import { DoctorComponent } from './doctor/doctor';
-import { Appoint } from './patient/DoctorPage';
-import { Patient } from './patient/patient';
-import { About } from './patient/About';
-import { Booking } from './patient/BOOKING';
-
 
 export const routes: Routes = [
-  { path: '', component: Login },
-  { path: 'home', component: Home },
-  { path: 'about', component: About },    
-  { path: 'booking', component: Booking },
-  { path: 'Appoint', component: Appoint },
-  { path: 'admin', component: Admin },
-  { path: 'doctor', component: DoctorComponent },
-  { path: 'patient', component: Patient },
-  { path: '**', redirectTo: '' }
+  { path: '', loadChildren: () => import('./auth/auth.routes').then((m) => m.AUTH_ROUTES) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES) },
+  { path: 'doctor', loadChildren: () => import('./doctor/doctor.routes').then((m) => m.DOCTOR_ROUTES) },
+  { path: 'patient', loadChildren: () => import('./patient/patient.routes').then((m) => m.PATIENT_ROUTES) },
+  { path: '**', redirectTo: '' },
 ];

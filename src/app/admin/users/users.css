@@ -1,0 +1,24 @@
+.layout {
+  display: flex;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+input {
+  width: 100%;
+  padding: 0.4rem;
+}

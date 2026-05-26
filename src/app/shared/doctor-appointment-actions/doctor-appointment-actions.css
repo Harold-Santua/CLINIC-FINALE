@@ -1,0 +1,31 @@
+.action-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.btn {
+  height: 2rem;
+  padding: 0 0.65rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn.primary {
+  background: #0f78c1;
+  color: #fff;
+}
+
+.btn.warn {
+  background: #b45309;
+  color: #fff;
+}
+
+.btn.danger {
+  background: #fff;
+  color: #991b1b;
+  border-color: #fecaca;
+}
